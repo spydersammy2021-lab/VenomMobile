@@ -2,170 +2,167 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venom Mobile - Speedtest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Venom Mobile Premium</title>
     <style>
         :root {
-            --v-red: #ff0000;
-            --v-dark: #0a0a0a;
-            --v-glass: rgba(255, 0, 0, 0.05);
+            --ios-red: #ff3b30;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         body {
             margin: 0;
-            background: #000;
+            background: #000 url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Branding Top */
+        /* Blur tła pod całą aplikacją */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
         header {
-            padding: 25px 20px;
-            display: flex;
-            justify-content: center;
-            background: linear-gradient(to bottom, #111, #000);
+            padding: 40px 20px 20px;
+            text-align: center;
         }
 
-        .brand {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: 2px;
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             text-transform: uppercase;
         }
 
-        .brand span { color: var(--v-red); }
+        .logo span { color: var(--ios-red); }
 
-        /* Główne Centrum Wyników */
-        .dashboard {
+        .main-container {
             flex: 1;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            padding: 20px;
-        }
-
-        /* Nowoczesny licznik kołowy */
-        .gauge-container {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .gauge-ring {
-            position: absolute;
+        /* Szklany Panel iOS */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid #222;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
-        }
-
-        .gauge-progress {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            border-top: 4px solid var(--v-red);
-            border-right: 4px solid var(--v-red);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .main-speed { text-align: center; z-index: 2; }
-        .main-speed h1 { font-size: 64px; margin: 0; font-weight: 900; }
-        .main-speed p { color: var(--v-red); margin: 0; font-weight: bold; letter-spacing: 3px; }
-
-        /* Panel Statystyk */
-        .stats-row {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .stat-card {
-            flex: 1;
-            background: var(--v-glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px 10px;
-            border-radius: 20px;
+            max-width: 350px;
+            padding: 40px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             text-align: center;
-            backdrop-filter: blur(10px);
         }
 
-        .stat-card .label { font-size: 11px; color: #777; text-transform: uppercase; margin-bottom: 8px; }
-        .stat-card .val { font-size: 22px; font-weight: bold; }
-        .stat-card .unit { color: var(--v-red); font-size: 12px; }
+        /* Licznik prędkości */
+        .speed-display {
+            margin-bottom: 40px;
+        }
 
-        /* Footer */
+        .speed-number {
+            font-size: 80px;
+            font-weight: 200;
+            line-height: 1;
+            margin: 0;
+            letter-spacing: -2px;
+        }
+
+        .speed-unit {
+            color: var(--ios-red);
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+
+        /* Statystyki Download/Upload */
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 30px;
+        }
+
+        .stat-item .label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-item .value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .stat-item .unit {
+            font-size: 12px;
+            color: var(--ios-red);
+        }
+
+        /* Dolny pasek */
         footer {
             padding: 30px;
             text-align: center;
-            background: var(--v-dark);
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
         }
 
-        .best-label { font-size: 20px; font-weight: bold; }
-        .best-label span { color: var(--v-red); }
-
-        @keyframes pulse {
-            0% { transform: rotate(0deg); opacity: 0.8; }
-            50% { transform: rotate(180deg); opacity: 1; }
-            100% { transform: rotate(360deg); opacity: 0.8; }
+        .tagline {
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(to right, #fff, var(--ios-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand"><span>V</span>ENOM MOBILE</div>
+        <div class="logo"><span>V</span>enom Mobile</div>
     </header>
 
-    <div class="dashboard">
-        <div class="gauge-container">
-            <div class="gauge-ring"></div>
-            <div class="gauge-progress"></div>
-            <div class="main-speed">
-                <h1>1000</h1>
-                <p>MB/S</p>
+    <div class="main-container">
+        <div class="glass-card">
+            <div class="speed-display">
+                <p class="speed-number">1000</p>
+                <p class="speed-unit">MBPS</p>
             </div>
-        </div>
 
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="label">Download</div>
-                <div class="val">1000.0</div>
-                <div class="unit">Mb/s</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Upload</div>
-                <div class="val">300.0</div>
-                <div class="unit">Mb/s</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="label">Pobieranie</div>
+                    <div class="value">1000<span class="unit">.0</span></div>
+                </div>
+                <div style="width: 1px; background: var(--glass-border);"></div>
+                <div class="stat-item">
+                    <div class="label">Wysyłanie</div>
+                    <div class="value">300<span class="unit">.0</span></div>
+                </div>
             </div>
         </div>
         
-        <div class="stats-row">
-            <div class="stat-card" style="padding: 10px;">
-                <span style="color:#00ff00; font-size: 12px;">● Ping: 2ms</span>
-            </div>
-            <div class="stat-card" style="padding: 10px;">
-                <span style="color:#fff; font-size: 12px;">Sieć: Venom 5G+</span>
-            </div>
+        <div style="margin-top: 30px; color: rgba(255,255,255,0.6); font-size: 14px;">
+            Sieć: <strong>Venom Ultra 5G+</strong>
         </div>
     </div>
 
     <footer>
-        <div class="best-label">Venom <span>numerem 1</span> w Polsce</div>
-        <div style="font-size: 10px; color: #444; margin-top: 8px;">TECHNOLOGIA ULTRA-BROADBAND 2026</div>
+        <div class="tagline">Venom numerem 1 w Polsce</div>
     </footer>
 
 </body>
