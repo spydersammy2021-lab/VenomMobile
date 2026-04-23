@@ -3,96 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Venom Mobile Speedtest</title>
+    <title>Venom Mobile - Speedtest Premium</title>
     <style>
         :root {
             --v-red: #ff0000;
-            --glass: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
 
         body {
             margin: 0;
             padding: 0;
             background: #000;
-            /* Gradient tła nadający głębię pod szkło */
-            background: radial-gradient(circle at center, #220000 0%, #000 100%);
+            /* Głęboki gradient w stylu Apple/T-Mobile */
+            background: radial-gradient(circle at top, #330000 0%, #000000 100%);
             color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Roboto, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* Górny pasek Venom */
+        /* Header z Twoim brandingiem */
         header {
-            padding: 25px 20px;
+            padding: 35px 20px 15px;
             text-align: center;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .brand {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 900;
-            text-transform: uppercase;
             letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .brand span { color: var(--v-red); }
 
-        /* Kontener główny - "Płynne Szkło" */
-        .glass-wrapper {
+        /* Główny kontener na "Płynne Szkło" */
+        .glass-container {
             flex: 1;
-            margin: 15px;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 10px 15px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
             border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
         }
 
-        /* Ukrywanie góry i dołu Fireprobe, by został sam licznik */
-        .iframe-container {
+        /* Ramka z prawdziwym silnikiem */
+        .iframe-wrapper {
             flex: 1;
             width: 100%;
             height: 100%;
-            position: relative;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            /* Lekkie przyciemnienie samej ramki, by pasowała do czarnego tła */
+            /* Dzięki temu tester wtapia się w czarne tło */
             background-color: transparent;
         }
 
-        /* Dolny baner jak w T-Mobile/Orange */
+        /* Stopka w stylu operatora */
         footer {
-            padding: 20px;
+            padding-bottom: 30px;
             text-align: center;
-            background: rgba(0,0,0,0.8);
         }
 
-        .promo {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 5px;
+        .promo-line {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
         }
 
-        .promo span { color: var(--v-red); }
-        
-        .sub-text {
+        .promo-line span {
+            color: var(--v-red);
+        }
+
+        .tech-info {
             font-size: 10px;
             color: #555;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Dekoracyjny blask pod szkłem */
+        .glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--v-red);
+            filter: blur(80px);
+            opacity: 0.2;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -102,8 +116,9 @@
         <div class="brand"><span>V</span>ENOM MOBILE</div>
     </header>
 
-    <main class="glass-wrapper">
-        <div class="iframe-container">
+    <main class="glass-container">
+        <div class="glow"></div>
+        <div class="iframe-wrapper">
             <iframe 
                 src="https://venom-mobile.fireprobe.net" 
                 scrolling="no">
@@ -112,8 +127,8 @@
     </main>
 
     <footer>
-        <div class="promo">Venom <span>numerem 1</span></div>
-        <div class="sub-text">Najszybsza sieć 5G Ultra w Polsce</div>
+        <p class="promo-line">Venom <span>numerem 1</span></p>
+        <div class="tech-info">Najszybsza sieć 5G Ultra w Polsce &copy; 2026</div>
     </footer>
 
 </body>
