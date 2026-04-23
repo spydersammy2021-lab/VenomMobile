@@ -5,125 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venom Mobile - Speedtest</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+        :root { --venom-red: #ff0000; --glass: rgba(255, 255, 255, 0.07); }
+        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; overflow: hidden; }
+        
+        /* Header */
+        header { height: 60px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #222; }
+        .logo { font-weight: 900; font-size: 22px; letter-spacing: -1px; }
+        .logo span { color: var(--venom-red); }
 
-        /* Górny pasek w stylu operatora */
-        header {
-            height: 60px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            border-bottom: 1px solid #333;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-weight: 900;
-            font-size: 20px;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        .logo span {
-            color: #ff0000; /* Czerwień Venom */
-        }
-
-        /* Kontener główny */
-        main {
-            flex: 1;
+        /* Główne okno testera */
+        .app-container {
+            height: calc(100vh - 150px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, #1a0000 0%, #000 100%);
+            background: radial-gradient(circle at center, #2b0000 0%, #000 100%);
         }
 
-        /* Stylizacja ramki testera */
-        .tester-container {
-            width: 95%;
-            max-width: 500px;
-            height: 80vh;
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            /* Ukrywamy białe błyski podczas ładowania */
-            background-color: #000;
-        }
-
-        /* Dolny baner jak w T-Mobile */
-        footer {
-            background: #000;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #222;
-        }
-
-        .promo-text {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .promo-text span {
-            color: #ff0000;
-        }
-
-        /* Przycisk pływający (jak słuchawka na zdjęciu) */
-        .fab {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background: #ff0000;
+        /* Wielki pierścień postępu */
+        .speed-ring {
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
+            border: 8px solid #111;
+            border-top: 8px solid var(--venom-red);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            justify-content: center;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.2);
+            animation: spin 2s linear infinite;
         }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .speed-value {
+            transform: rotate(-360deg); /* Odkręcenie tekstu, żeby stał prosto */
+            animation: counter-spin 2s linear infinite;
+            text-align: center;
+        }
+        
+        @keyframes counter-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+
+        /* Sekcja wyników - to o co prosiłeś */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 90%;
+            margin-top: 40px;
+        }
+
+        .result-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,0,0,0.2);
+            text-align: center;
+        }
+
+        .label { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .value { font-size: 24px; font-weight: bold; color: #fff; }
+        .unit { font-size: 14px; color: var(--venom-red); }
+
+        /* Footer */
+        footer { position: fixed; bottom: 0; width: 100%; padding: 20px; background: #000; text-align: center; border-top: 1px solid #222; }
+        .status { color: #00ff00; font-size: 12px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo"><span>V</span>ENOM MOBILE</div>
-        <div style="color: #666;">☰</div>
     </header>
 
-    <main>
-        <div class="tester-container">
-            <iframe src="https://venom-mobile.fireprobe.net" scrolling="no"></iframe>
+    <div class="app-container">
+        <div class="speed-ring">
+            <div class="speed-value">
+                <div style="font-size: 48px; font-weight: 900;">1000</div>
+                <div style="color: var(--venom-red); font-weight: bold;">Mb/s</div>
+            </div>
         </div>
-    </main>
 
-    <div class="fab">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-            <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-        </svg>
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="label">Pobieranie</div>
+                <div class="value">1000.0 <span class="unit">Mb/s</span></div>
+            </div>
+            <div class="result-card">
+                <div class="label">Wysyłanie</div>
+                <div class="value">300.0 <span class="unit">Mb/s</span></div>
+            </div>
+        </div>
     </div>
 
     <footer>
-        <p class="promo-text">Venom <span>numerem 1</span></p>
-        <p style="font-size: 10px; color: #444; margin-top: 5px;">Według testów prędkości 2026</p>
+        <div class="status"><div class="dot"></div> Sieć Venom 5G Ultra działa poprawnie</div>
+        <div style="font-size: 20px; font-weight: bold;">Venom <span style="color: var(--venom-red);">numerem 1</span></div>
     </footer>
 
 </body>
