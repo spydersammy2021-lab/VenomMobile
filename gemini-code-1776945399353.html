@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venom Mobile | Ultra Speedtest</title>
+    <style>
+        :root {
+            --neon: #00ff41;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            margin: 0;
+            background: #050505;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Szklany Header z animacją */
+        header {
+            padding: 20px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .logo span { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+
+        /* Płynne szkło dla ramki */
+        .container {
+            flex: 1;
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+
+        .glass-box {
+            width: 100%;
+            max-width: 1200px;
+            height: 85vh;
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0,0,0,1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><span>VENOM</span> FIRE TEST</div>
+    <div style="color: #666; font-size: 12px;">STATUS: READY</div>
+</header>
+
+<div class="container">
+    <div class="glass-box">
+        <iframe 
+            src="https://venom-mobile.fireprobe.net" 
+            allow="geolocation; microphone; camera; midi; encrypted-media; autoplay; clipboard-write; display-capture; allow-scripts; allow-same-origin"
+            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"
+            scrolling="no">
+        </iframe>
+    </div>
+</div>
+
+</body>
+</html>
