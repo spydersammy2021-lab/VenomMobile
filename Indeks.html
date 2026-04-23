@@ -2,168 +2,103 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Venom Mobile Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venom Mobile - Real Speed</title>
+    <script src="https://librespeed.org/librespeed.js"></script>
     <style>
-        :root {
-            --ios-red: #ff3b30;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+        :root { --v-red: #ff0000; --glass: rgba(255, 255, 255, 0.1); }
+        body { 
+            margin: 0; background: #000; color: #fff; 
+            font-family: -apple-system, sans-serif;
+            height: 100vh; display: flex; flex-direction: column;
+            background: linear-gradient(135deg, #000 0%, #1a0000 100%);
         }
 
-        body {
-            margin: 0;
-            background: #000 url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+        header { padding: 30px; text-align: center; }
+        .logo { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+        .logo span { color: var(--v-red); }
 
-        /* Blur tła pod całą aplikacją */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: -1;
-        }
+        .container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
 
-        header {
-            padding: 40px 20px 20px;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-transform: uppercase;
-        }
-
-        .logo span { color: var(--ios-red); }
-
-        .main-container {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Szklany Panel iOS */
+        /* iOS Glassmorphism Card */
         .glass-card {
-            background: var(--glass-bg);
+            background: var(--glass);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 40px;
-            width: 100%;
-            max-width: 350px;
+            width: 100%; max-width: 340px;
             padding: 40px 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        /* Licznik prędkości */
-        .speed-display {
-            margin-bottom: 40px;
+        .speed-val { font-size: 70px; font-weight: 200; margin: 0; }
+        .unit { color: var(--v-red); font-weight: bold; font-size: 14px; letter-spacing: 2px; }
+
+        /* Przycisk START */
+        .btn-start {
+            margin-top: 30px;
+            background: var(--v-red);
+            color: white; border: none;
+            padding: 15px 50px; border-radius: 30px;
+            font-weight: bold; font-size: 18px;
+            box-shadow: 0 0 20px rgba(255,0,0,0.4);
+            cursor: pointer;
         }
 
-        .speed-number {
-            font-size: 80px;
-            font-weight: 200;
-            line-height: 1;
-            margin: 0;
-            letter-spacing: -2px;
-        }
-
-        .speed-unit {
-            color: var(--ios-red);
-            font-weight: 600;
-            font-size: 18px;
-            margin-top: 5px;
-            letter-spacing: 2px;
-        }
-
-        /* Statystyki Download/Upload */
-        .stats-grid {
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 30px;
-        }
-
-        .stat-item .label {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .stat-item .value {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .stat-item .unit {
-            font-size: 12px;
-            color: var(--ios-red);
-        }
-
-        /* Dolny pasek */
-        footer {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .tagline {
-            font-size: 18px;
-            font-weight: 600;
-            background: linear-gradient(to right, #fff, var(--ios-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .stats { display: flex; justify-content: space-around; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .stat-box .label { font-size: 10px; color: #888; text-transform: uppercase; }
+        .stat-box .value { font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo"><span>V</span>enom Mobile</div>
+        <div class="logo"><span>V</span>ENOM MOBILE</div>
     </header>
 
-    <div class="main-container">
+    <div class="container">
         <div class="glass-card">
-            <div class="speed-display">
-                <p class="speed-number">1000</p>
-                <p class="speed-unit">MBPS</p>
+            <div id="status" style="font-size: 12px; color: #888; margin-bottom: 10px;">Gotowy do testu</div>
+            <p class="speed-val" id="dlText">0</p>
+            <p class="unit">MBPS DOWNLOAD</p>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="label">Upload</div>
+                    <div class="value" id="ulText">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="label">Ping</div>
+                    <div class="value" id="pingText">0</div>
+                </div>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="label">Pobieranie</div>
-                    <div class="value">1000<span class="unit">.0</span></div>
-                </div>
-                <div style="width: 1px; background: var(--glass-border);"></div>
-                <div class="stat-item">
-                    <div class="label">Wysyłanie</div>
-                    <div class="value">300<span class="unit">.0</span></div>
-                </div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 30px; color: rgba(255,255,255,0.6); font-size: 14px;">
-            Sieć: <strong>Venom Ultra 5G+</strong>
+            <button class="btn-start" onclick="startTest()">START</button>
         </div>
     </div>
 
-    <footer>
-        <div class="tagline">Venom numerem 1 w Polsce</div>
+    <footer style="padding: 20px; text-align: center;">
+        <div style="font-weight: bold; font-size: 18px;">Venom <span>numerem 1</span></div>
     </footer>
 
+    <script>
+        // Konfiguracja silnika pomiarowego
+        var s = new Librespeed();
+        s.onupdate = function(data) {
+            document.getElementById('dlText').textContent = data.dlStatus || "0";
+            document.getElementById('ulText').textContent = data.ulStatus || "0";
+            document.getElementById('pingText').textContent = data.pingStatus || "0";
+        };
+        s.onend = function(aborted) {
+            document.getElementById('status').textContent = aborted ? "Przerwano" : "Test zakończony";
+        };
+
+        function startTest() {
+            document.getElementById('status').textContent = "Testowanie...";
+            s.start();
+        }
+    </script>
 </body>
 </html>
